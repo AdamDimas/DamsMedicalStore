@@ -1,0 +1,60 @@
+{% extends "base.html" %}
+
+{% block nav %}
+    {% include NavRole %}
+{% endblock %}
+
+{% block content %}
+<br><br>
+{% if products_amount == 0 %}
+    <div class="text-center">
+        <br><br><br><br><br><br><br><br>
+        <p>Product is Empty...</p>
+        <div class="col-auto">
+            <a href="{% url 'main:create' %}" class="btn btn-success mr-2">Create Product</a>
+        </div>
+    </div>
+{% else %}
+
+<div class="container" style="display: flex; justify-content: center; align-items: center; flex-direction: column;">
+    <div class="card-content" style="display: flex; justify-content: center; align-items: center; flex-wrap: wrap; margin: 40px;">
+        {% for product in products %}
+            <div class="card" style="position: relative; box-shadow: 0 5px 30px rgb(1 1 1 / 50%); max-width: 400px; height: auto; margin: 25px; border-radius: 10px; overflow: hidden; align-items: center;">
+                <div class="card-image">
+                    <img src="{{product.product_image.url}}" alt="" style="width: 200px; height: 200px; padding-top: 10px;">
+                </div>
+                <div class="card-info" style="position: relative; padding: 10px 20px 20px; align-items: center; display: flex; flex-direction: column; justify-content: space-between;">
+                    <h4 style="font-size: 1.8em;font-weight: 500; margin-bottom: 5px;">{{product.name}}</h4>
+                    <p>Stock: {{product.stock}}</p>
+                </div>
+                <div class="card-detail" style="position: relative; display: flex; justify-content: space-between; align-items: center; padding: 15px; gap: 10px;">
+                    <a href="{% url 'main:detail_product' product.slug %}" class="btn btn-primary">Detail</a>
+                    {% if request.user.is_superuser or request.user.is_staff  %}
+                    <a href="{% url 'main:update_product' product.slug %}" class="btn btn-warning">Update</a>
+                    <a href="{% url 'main:delete_product' product.slug %}" class="btn btn-danger">Delete</a>
+                    {% endif %}
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+</div>
+<br>
+<nav aria-label="Page navigation" class="d-flex justify-content-center mt-4">
+    <ul class="pagination">
+        {% if products.has_previous %}
+        <li class="page-item"><a href="?page=1" class="page-link">&laquo; First</a></li>
+        <li class="page-item"><a href="?page={{products.previous_page_number}}" class="page-link">Previous</a></li>
+        {% endif %}
+        <li class="page-item disabled"> 
+            <a href="#" class="page-link">
+                Page {{products.number}} of {{products.paginator.num_pages}}
+            </a>
+        </li>
+        {% if products.has_next %}
+            <li class="page-item"><a href="?page={{products.next_page_number}}" class="page-link">Next</a></li>
+            <li class="page-item"><a href="?page={{products.paginator.num_pages}}" class="page-link">Last &raquo; </a></li>
+        {% endif %}
+    </ul>
+</nav>
+{% endif %}
+{% endblock %}

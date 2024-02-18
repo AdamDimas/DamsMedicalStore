@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+
+{% load crispy_forms_tags %}
+
+{% block nav %}
+    <nav class="navbar navbar-expand-lg bg-body-tertiary">
+        <div class="container-fluid">
+        <a class="navbar-brand" href="#">CaysDrugstore | {{title}}</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav" style="padding-left: 400px;">
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="{% url 'authentication:login' %}">Login</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="{% url 'authentication:register' %}">Register</a>
+                </li>
+            </ul>
+        </div>
+        </div>
+    </nav>
+{% endblock %}
+
+{% block content %}
+    <br><br>
+    <form action="" method="post">
+        {% csrf_token %}
+        <div class="form-group">
+            {{forms|crispy}}
+        </div>
+        <br><br>
+        <p>Already have account? <a href="{% url 'authentication:login' %}">Login Here</a></p>
+        <br><br>
+        <button type="submit"
+        class="btn btn-primary">Register</button>
+    </form>
+    <br><br>
+{% endblock %}

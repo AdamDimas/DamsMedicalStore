@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+
+{% block nav %}
+    {% include NavRole %}
+{% endblock %}
+
+{% block content %}
+    <br><br>
+    <div class="container my-5">
+        {% for product in products %}
+        <div class="card mb-3">
+            <h5 class="card-header text-center">{{ product.name }}</h5>
+            <div class="card-body" disp>
+                <div class="row">
+                    <div class="col-md-6">
+                        <img src="{{ product.product_image.url }}" class="img-fluid" alt="{{ product.name }}" style="height: 350px; width: 500px;">
+                    </div>
+                    <div class="col-md-6" style="align-items: center; justify-content: center; display: flex;">
+                        <ul class="list-group">
+                            <li class="list-group-item"><strong>Stock: </strong> {{ product.stock }}</li>
+                            <li class="list-group-item"><strong>Description: </strong> {{ product.description }}</li>
+                            <li class="list-group-item"><strong>Creator: </strong> {{ product.creator }}</li>
+                            <li class="list-group-item"><strong>Created at: </strong> {{ product.created }}</li>
+                            <li class="list-group-item"><strong>Last Updated: </strong> {{ product.updated }}</li>
+                        </ul>
+                        <br><br>
+                    </div>
+                </div>
+            </div>
+            <br><br><br>
+            <div class="card-detail" style="position: relative; display: flex; justify-content: center; align-items: center; padding: 10px; gap: 50px;">
+                <a href="{% url 'main:home' %}" class="btn btn-primary">Back</a>
+                {% if request.user.is_superuser or request.user.is_staff %}
+                    <a href="{% url 'main:update_product' product.slug %}" class="btn btn-warning">Update</a>
+                    <a href="{% url 'main:delete_product' product.slug %}" class="btn btn-danger">Delete</a>
+                {% endif %}
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+{% endblock %}

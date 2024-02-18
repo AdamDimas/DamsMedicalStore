@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+
+{% block nav %}
+    {% include NavRole %}
+{% endblock %}
+
+{% block content %}
+    <br><br>
+    <form action="" method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        {% for form in forms %}
+        <div class="form-group">
+            {{form.label_tag}}
+            {{form}}
+            <br>
+        </div>
+        {% endfor %}
+        <br><br>
+        <button type="submit"
+        class="btn btn-primary">Update Product</button>
+        <a href="{% url 'main:home' %}" class="btn btn-warning">Cancel</a>
+    </form>
+    <br><br>
+{% endblock %}

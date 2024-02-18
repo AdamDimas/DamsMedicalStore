@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <br><br><br><br><br><br><br><br>
+    <div class="text-center">
+        <p>Are you sure you want to logout?</p>
+        <br><br>
+        <div class="row justify-content-center">
+            <div class="col-auto">
+                <a href="{% url 'authentication:logout_process' %}" class="btn btn-success mr-2">Logout</a>
+            </div>
+            <div class="col-auto">
+                <a href="{% url 'main:home' %}" class="btn btn-danger">Cancel</a>
+            </div>
+        </div>
+    </div>
+{% endblock %}

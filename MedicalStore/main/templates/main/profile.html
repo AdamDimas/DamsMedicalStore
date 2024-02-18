@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+
+{% block nav %}
+    {% include NavRole %}
+{% endblock %}
+
+{% block content %}
+
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card">
+                <div class="card-header">Your Profile</div>
+                <div class="card-body">
+                    <div class="text-center">
+                        {% if request.user.is_superuser %}  
+                            <h3  style="color: rgb(234, 8, 38);">Role: {{groups}}</h3>
+                        {% elif request.user.is_staff %}
+                            <h3  style="color: rgb(24, 34, 142);">Role: {{groups}}</h3>
+                        {% else %}
+                            <h3  style="color: rgb(57, 154, 27);">Role: {{groups}}</h3>    
+                        {% endif %}
+
+                        {% if profiles.profile_image %}
+                            <img src="{{ profiles.profile_image.url }}" alt="Profile Image" class="profile-image img-fluid rounded-circle" style="margin-bottom: 50px; margin-top: 50px; width: 330px; height: 330px;">
+                            {% else %}
+                            <img src="" alt="Profile Image" class="profile-image img-fluid rounded-circle" style="margin-bottom: 50px; margin-top: 50px; width: 330px; height: 330px;">
+                        {% endif %}
+                        <h2 style="margin-bottom: 10px;">{{ profiles.name }}</h2>
+                        <p style="margin-bottom: 40px;">{{ profiles.email }}</p>
+                    </div>
+                    <div class="text-center">
+                        <a href="{% url 'main:edit_profile' %}" class="btn btn-primary">Edit Profile</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<br><br><br><br><br><br><br><br>
+{% endblock %}

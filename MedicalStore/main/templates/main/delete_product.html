@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <br><br><br><br><br><br><br><br>
+    <div class="text-center">
+        <p>Are you sure you want to delete {{product}} ?</p>
+        <br><br>
+        <div class="row justify-content-center">
+            <form action="" method="post">
+                {% csrf_token %}
+                <div class="col-auto" style="display: flex; justify-content:center; gap: 70px;">
+                    <a href="{% url 'main:home' %}" class="btn btn-success">Cancel</a>
+                    <button type="submit" class="btn btn-danger">Delete</button>
+                </div>
+            </form>
+        </div>
+    </div>
+{% endblock %}
