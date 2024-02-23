@@ -9,7 +9,7 @@
     <form action="" method="post" enctype="multipart/form-data">
         {% csrf_token %}
         {% for form in forms %}
-        <div class="form-group">
+        <div class="form-group" style="margin: 15px;">
             {{form.label_tag}}
             {{form}}
             <br>

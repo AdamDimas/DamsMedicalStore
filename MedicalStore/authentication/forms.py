@@ -41,8 +41,7 @@ class RegisterForm(UserCreationForm):
             "password2",
             "is_agree"
         ]
-
-        widget = {
+        widgets = {
             "password1":forms.PasswordInput(
                 attrs={
                     "class":"form-control",
